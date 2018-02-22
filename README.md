@@ -19,9 +19,13 @@ phantom.create().then(function(ph) {
 	ph.createPage().then(function(page) {
 
 		page.property("viewportSize", {'width': 200, 'height': 100});
-		page.property("content",'<html><body><canvas id="surface" width="200" height="100"></canvas></body></html>');
+		page.property("content",'《html》《body》《canvas id="surface" width="200" height="100"》《/canvas》《/body》《/html》');
+                
+                ⚠️
+                需要把"《"转换为"<",把"》"转换为">"
 		
-		// page.content = '<html><body><canvas id="surface" width="200" height="100"></canvas></body></html>';
+		
+                // page.content = '<html><body><canvas id="surface" width="200" height="100"></canvas></body></html>';
 		
 		page.evaluate(function() {
 			var c=el = document.getElementById('surface');
