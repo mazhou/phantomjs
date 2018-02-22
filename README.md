@@ -1,6 +1,9 @@
 #
 ## install Cases
+https://www.npmjs.com/package/phantom
+
 sudo  -H npm install phantom --save
+
 
 (命令行操作) 安装phantom http://phantomjs.org/download.html
 
