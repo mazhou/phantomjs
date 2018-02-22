@@ -1,3 +1,69 @@
+#
+## install Cases
+sudo  -H npm install phantom --save
+
+(命令行操作) 安装phantom http://phantomjs.org/download.html
+vi ~/.bash_profile
+alias phantomjs='~/PATH/*/phantomjs'
+
+## Use Cases
+<pre>
+var phantom = require('phantom');
+phantom.create().then(
+	function(ph) {
+	  	ph.createPage().then(function(page) {
+	  		
+	  		page.viewportSize = {
+			  	width: 500,
+			  	height: 400
+			};
+
+			page.open('http://localhost:8888/1.html').then(function(status) {
+			// page.open('http://www.baidu.com/').then(function(status) {
+				console.log(status);
+				page.property('content').then(function(content) {
+					// console.log(content);
+		        	page.viewportSize = {
+					  	width: 200,
+					  	height: 100
+					};
+				  		
+				  	page.clipRect = {
+						top: 0,
+						left: 0,
+						width: 200,
+						height: 100
+					};
+
+					page.paperSize = {
+					  	width: '100px',
+					  	height: '50in',
+					  	margin: {
+					    	top: '0px',
+					    	left: '0px'
+					  	}
+					};
+		   
+					setTimeout(function () {
+				       
+				        page.render('1.png');
+			        	page.close();
+			        	ph.exit();
+
+				        console.log('render ok');
+				     }, 1000);
+		        	
+		      	});
+		    });
+		});
+	}
+);
+
+</pre>
+
+
+--------------------------------------------------------------------------------------
+
 # [PhantomJS](http://phantomjs.org) - Scriptable Headless WebKit
 
 PhantomJS ([phantomjs.org](http://phantomjs.org)) is a headless WebKit scriptable with JavaScript.  The latest [stable release](http://phantomjs.org/release-2.1.html) is version 2.1.
