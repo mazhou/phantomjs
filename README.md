@@ -14,6 +14,50 @@ alias phantomjs='~/PATH/*/phantomjs'
 ## Use Cases
 <pre>
 var phantom = require('phantom');
+
+phantom.create().then(function(ph) {
+	ph.createPage().then(function(page) {
+
+		page.property("viewportSize", {'width': 200, 'height': 100});
+		page.property("content",'<html><body><canvas id="surface" width="200" height="100"></canvas></body></html>');
+		
+		// page.content = '<html><body><canvas id="surface" width="200" height="100"></canvas></body></html>';
+		
+		page.evaluate(function() {
+			var c=el = document.getElementById('surface');
+			var ctx = el.getContext('2d');
+			ctx.font="40px Verdana";
+			var gradient=ctx.createLinearGradient(0,0,c.width,0);
+
+			gradient.addColorStop("0","magenta");
+			gradient.addColorStop("0.5","blue");
+			gradient.addColorStop("1","red");
+
+			//把他赋值给fillStyle
+
+			ctx.fillStyle=gradient;
+
+			ctx.fillText("1234wA",10,80);
+		})
+
+		page.render('2.png');
+
+		setTimeout(function(){
+			ph.exit();
+		},1000);
+	
+	});
+});
+
+
+
+
+
+
+
+</pre>
+<pre>
+var phantom = require('phantom');
 phantom.create().then(
 	function(ph) {
 	  	ph.createPage().then(function(page) {
